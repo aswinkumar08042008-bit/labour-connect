@@ -2217,9 +2217,48 @@ SizedBox(
     ),
   ),
 ),
+const SizedBox(height: 20),
 
-// 👇 ADD THE NEW CODE HERE
+SizedBox(
+  width: double.infinity,
+  height: 100,
 
+  child: Card(
+    child: InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+                const MyRatingScreen(),
+          ),
+        );
+      },
+
+      child: const Row(
+        children: [
+
+          SizedBox(width: 20),
+
+          Icon(
+            Icons.star,
+            size: 45,
+          ),
+
+          SizedBox(width: 20),
+
+          Text(
+            'My Ratings & Reviews',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+      ),
+    ),
+  ),
+),
 const SizedBox(height: 20),
 
 SizedBox(
@@ -3581,6 +3620,98 @@ class _ReviewLabourScreenState
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+class MyRatingScreen extends StatelessWidget {
+  const MyRatingScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('My Ratings & Reviews'),
+      ),
+
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+
+        child: labourRating == 0
+            ? const Center(
+                child: Text(
+                  'No ratings yet.',
+                  style: TextStyle(
+                    fontSize: 18,
+                  ),
+                ),
+              )
+            : Column(
+                crossAxisAlignment:
+                    CrossAxisAlignment.center,
+
+                children: [
+
+                  const SizedBox(height: 30),
+
+                  const Icon(
+                    Icons.star,
+                    size: 80,
+                  ),
+
+                  const SizedBox(height: 15),
+
+                  Text(
+                    '$labourRating / 5',
+                    style: const TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+
+                  const SizedBox(height: 10),
+
+                  Text(
+                    'Rating received from the user',
+                    textAlign: TextAlign.center,
+                  ),
+
+                  const SizedBox(height: 30),
+
+                  if (labourReview.isNotEmpty)
+                    Card(
+                      child: Padding(
+                        padding: const EdgeInsets.all(20),
+
+                        child: Column(
+                          crossAxisAlignment:
+                              CrossAxisAlignment.start,
+
+                          children: [
+
+                            const Text(
+                              'User Review',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight:
+                                    FontWeight.bold,
+                              ),
+                            ),
+
+                            const SizedBox(height: 10),
+
+                            Text(
+                              labourReview,
+                              style: const TextStyle(
+                                fontSize: 16,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                ],
+              ),
       ),
     );
   }
