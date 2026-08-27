@@ -1241,7 +1241,7 @@ class _WorkStatusScreenState
     ],
   ),
   if (workStatus == 'Work Confirmed')
-  const Column(
+   Column(
     children: [
 
       SizedBox(height: 20),
@@ -1267,6 +1267,28 @@ class _WorkStatusScreenState
         'The work has been confirmed successfully.',
         textAlign: TextAlign.center,
       ),
+      const SizedBox(height: 25),
+
+SizedBox(
+  width: double.infinity,
+  height: 50,
+
+  child: ElevatedButton(
+    onPressed: () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) =>
+              const ReviewLabourScreen(),
+        ),
+      );
+    },
+
+    child: const Text(
+      'RATE & REVIEW LABOUR',
+    ),
+  ),
+),
     ],
   ),
 
@@ -2467,26 +2489,7 @@ class _LabourWorkScreenState
       // ADD REVIEW BUTTON HERE
       const SizedBox(height: 25),
 
-      SizedBox(
-        width: double.infinity,
-        height: 50,
 
-        child: ElevatedButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) =>
-                    const ReviewLabourScreen(),
-              ),
-            );
-          },
-
-          child: const Text(
-            'RATE & REVIEW LABOUR',
-          ),
-        ),
-      ),
     ],
   ),
                   ],
