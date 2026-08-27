@@ -2113,7 +2113,7 @@ class LabourHomeScreen extends StatelessWidget {
         title: const Text('Labour Connect'),
       ),
 
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
 
         child: Column(
@@ -2217,6 +2217,7 @@ SizedBox(
     ),
   ),
 ),
+
 const SizedBox(height: 20),
 
 SizedBox(
