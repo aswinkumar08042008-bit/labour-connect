@@ -2437,30 +2437,55 @@ class _LabourWorkScreenState
     ],
   ),
   if (workStatus == 'Work Confirmed')
-  const Column(
+  Column(
     children: [
-      SizedBox(height: 20),
 
-      Icon(
+      const SizedBox(height: 20),
+
+      const Icon(
         Icons.check_circle,
         size: 70,
       ),
 
-      SizedBox(height: 15),
+      const SizedBox(height: 15),
 
-      Text(
-        'Work Successfully Completed!',
+      const Text(
+        'Work Completed Successfully!',
         style: TextStyle(
           fontSize: 22,
           fontWeight: FontWeight.bold,
         ),
       ),
 
-      SizedBox(height: 10),
+      const SizedBox(height: 10),
 
-      Text(
+      const Text(
         'The work has been confirmed successfully.',
         textAlign: TextAlign.center,
+      ),
+
+      // ADD REVIEW BUTTON HERE
+      const SizedBox(height: 25),
+
+      SizedBox(
+        width: double.infinity,
+        height: 50,
+
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>
+                    const ReviewLabourScreen(),
+              ),
+            );
+          },
+
+          child: const Text(
+            'RATE & REVIEW LABOUR',
+          ),
+        ),
       ),
     ],
   ),
@@ -3380,6 +3405,165 @@ class _WorkCompletionOtpScreenState
 
                 child: const Text(
                   'VERIFY OTP',
+                  style: TextStyle(
+                    fontSize: 18,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+class ReviewLabourScreen extends StatefulWidget {
+  const ReviewLabourScreen({super.key});
+
+  @override
+  State<ReviewLabourScreen> createState() =>
+      _ReviewLabourScreenState();
+}
+
+class _ReviewLabourScreenState
+    extends State<ReviewLabourScreen> {
+
+  int rating = 0;
+
+  final TextEditingController reviewController =
+      TextEditingController();
+
+  @override
+  void dispose() {
+    reviewController.dispose();
+    super.dispose();
+  }
+
+  void submitReview() {
+    if (rating == 0) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Please select a rating',
+          ),
+        ),
+      );
+      return;
+    }
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text(
+          'Review submitted successfully!',
+        ),
+      ),
+    );
+
+    Navigator.pop(context);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Rate & Review'),
+      ),
+
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(20),
+
+        child: Column(
+          crossAxisAlignment:
+              CrossAxisAlignment.center,
+
+          children: [
+
+            const Icon(
+              Icons.person,
+              size: 80,
+            ),
+
+            const SizedBox(height: 20),
+
+            const Text(
+              'Rate Your Worker',
+              style: TextStyle(
+                fontSize: 26,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
+            const SizedBox(height: 10),
+
+            const Text(
+              'How was your experience?',
+              textAlign: TextAlign.center,
+            ),
+
+            const SizedBox(height: 30),
+
+            Row(
+              mainAxisAlignment:
+                  MainAxisAlignment.center,
+
+              children: List.generate(5, (index) {
+                return IconButton(
+                  onPressed: () {
+                    setState(() {
+                      rating = index + 1;
+                    });
+                  },
+
+                  icon: Icon(
+                    index < rating
+                        ? Icons.star
+                        : Icons.star_border,
+                    size: 40,
+                  ),
+                );
+              }),
+            ),
+
+            const SizedBox(height: 10),
+
+            Text(
+              rating == 0
+                  ? 'Select your rating'
+                  : '$rating out of 5 stars',
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
+            const SizedBox(height: 30),
+
+            TextField(
+              controller: reviewController,
+              maxLines: 5,
+
+              decoration: InputDecoration(
+                labelText: 'Write a review (Optional)',
+                hintText:
+                    'Tell us about your experience...',
+                border: OutlineInputBorder(
+                  borderRadius:
+                      BorderRadius.circular(10),
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 30),
+
+            SizedBox(
+              width: double.infinity,
+              height: 50,
+
+              child: ElevatedButton(
+                onPressed: submitReview,
+
+                child: const Text(
+                  'SUBMIT REVIEW',
                   style: TextStyle(
                     fontSize: 18,
                   ),
