@@ -2413,15 +2413,21 @@ class _LabourWorkScreenState
         height: 50,
 
         child: ElevatedButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) =>
-                    const WorkCompletionOtpScreen(),
-              ),
-            );
-          },
+          onPressed: () async {
+  final result = await Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) =>
+          const WorkCompletionOtpScreen(),
+    ),
+  );
+
+  if (result == true) {
+    setState(() {
+      workStatus = 'Work Confirmed';
+    });
+  }
+},
 
           child: const Text(
             'ENTER COMPLETION OTP',
