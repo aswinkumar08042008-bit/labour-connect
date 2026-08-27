@@ -8,6 +8,8 @@ String workStatus = 'Not Started';
 String generatedOtp = '';
 bool otpGenerated = false;
 bool workConfirmed = false;
+int labourRating = 0;
+String labourReview = '';
 String? uploadedIdProofPath;
 
 void main() {
@@ -3443,27 +3445,31 @@ class _ReviewLabourScreenState
   }
 
   void submitReview() {
-    if (rating == 0) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text(
-            'Please select a rating',
-          ),
-        ),
-      );
-      return;
-    }
-
+  if (rating == 0) {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
         content: Text(
-          'Review submitted successfully!',
+          'Please select a rating',
         ),
       ),
     );
-
-    Navigator.pop(context);
+    return;
   }
+
+  // Save rating and review
+  labourRating = rating;
+  labourReview = reviewController.text;
+
+  ScaffoldMessenger.of(context).showSnackBar(
+    const SnackBar(
+      content: Text(
+        'Review submitted successfully!',
+      ),
+    ),
+  );
+
+  Navigator.pop(context);
+}
 
   @override
   Widget build(BuildContext context) {
